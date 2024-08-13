@@ -40,7 +40,6 @@ func writePrimeFinderRangesToFile(primeFinderRanges []PrimeFinderRange) {
 	}
 	defer file.Close()
 
-	// sort by Start value
 	sort.Slice(primeFinderRanges, func(i, j int) bool {
 		return primeFinderRanges[i].Start < primeFinderRanges[j].Start
 	})

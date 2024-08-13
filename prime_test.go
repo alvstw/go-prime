@@ -11,7 +11,7 @@ func BenchmarkPrimeFinder(b *testing.B) {
 
 	finder := PrimeFinder{}
 
-	finder.setRange(1, 1000000, 100)
+	finder.setRange(1, giga, 100)
 	writePrimeFinderRangesToFile(finder.Ranges)
 
 	primeNumbers := finder.execute()

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"sync"
 	"time"
@@ -17,22 +18,24 @@ type PrimeFinderRange struct {
 }
 
 func (f PrimeFinder) execute() []int {
+	var wg sync.WaitGroup
+
 	mutex := sync.RWMutex{}
 	primesResult := make([]int, 0)
 	completedRanges := 0
 
-	go func() {
-		for _, finderRange := range f.Ranges {
-			go func() {
-				var primes = finderRange.getPrimes()
+	for _, finderRange := range f.Ranges {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			var primes = finderRange.getPrimes()
 
-				mutex.Lock()
-				primesResult = append(primesResult, primes...)
-				completedRanges++
-				mutex.Unlock()
-			}()
-		}
-	}()
+			mutex.Lock()
+			primesResult = append(primesResult, primes...)
+			completedRanges++
+			mutex.Unlock()
+		}()
+	}
 
 	go func() {
 		ticker := time.NewTicker(time.Second)
@@ -49,14 +52,7 @@ func (f PrimeFinder) execute() []int {
 		}
 	}()
 
-	for {
-		mutex.RLock()
-		if completedRanges == len(f.Ranges) {
-			break
-		}
-		mutex.RUnlock()
-	}
-
+	wg.Wait()
 	sort.Ints(primesResult)
 	return primesResult
 }
@@ -86,7 +82,17 @@ func (r PrimeFinderRange) getPrimes() []int {
 }
 
 func isPrime(n int) bool {
-	for i := 2; i < n; i++ {
+	if n <= 1 {
+		return false
+	}
+	if n == 2 {
+		return true
+	}
+	if n%2 == 0 {
+		return false
+	}
+	sqrtN := int(math.Sqrt(float64(n)))
+	for i := 3; i <= sqrtN; i += 2 {
 		if n%i == 0 {
 			return false
 		}
