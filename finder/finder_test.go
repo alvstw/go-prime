@@ -1,7 +1,8 @@
-package main
+package finder
 
 import (
 	"fmt"
+	"prime/constants"
 	"testing"
 	"time"
 )
@@ -11,11 +12,11 @@ func BenchmarkPrimeFinder(b *testing.B) {
 
 	finder := PrimeFinder{}
 
-	finder.setRange(1, giga, 100)
-	writePrimeFinderRangesToFile(finder.Ranges)
+	finder.SetRange(1, constants.Giga, 100)
+	WritePrimeFinderRangesToFile(finder.Ranges)
 
-	primeNumbers := finder.execute()
-	writePrimesToFile(primeNumbers)
+	primeNumbers := finder.Execute()
+	WritePrimesToFile(primeNumbers)
 
 	endTime := time.Now()
 

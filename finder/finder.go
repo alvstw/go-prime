@@ -1,4 +1,4 @@
-package main
+package finder
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ type PrimeFinderRange struct {
 	End   int
 }
 
-func (f PrimeFinder) execute() []int {
+func (f PrimeFinder) Execute() []int {
 	var wg sync.WaitGroup
 
 	mutex := sync.RWMutex{}
@@ -57,7 +57,7 @@ func (f PrimeFinder) execute() []int {
 	return primesResult
 }
 
-func (f *PrimeFinder) setRange(start int, end int, numberPerBatch int) {
+func (f *PrimeFinder) SetRange(start int, end int, numberPerBatch int) {
 	primeFinderRanges := make([]PrimeFinderRange, 0)
 
 	for i := start; i <= end; i += numberPerBatch {

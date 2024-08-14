@@ -1,4 +1,4 @@
-package main
+package finder
 
 import (
 	"bufio"
@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-func writePrimesToFile(primeNumbers []int) {
+func WritePrimesToFile(primeNumbers []int) {
 	file, err := os.OpenFile("primes.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -32,7 +32,7 @@ func writePrimesToFile(primeNumbers []int) {
 	}
 }
 
-func writePrimeFinderRangesToFile(primeFinderRanges []PrimeFinderRange) {
+func WritePrimeFinderRangesToFile(primeFinderRanges []PrimeFinderRange) {
 	file, err := os.OpenFile("primeFinderRanges.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)

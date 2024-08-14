@@ -2,22 +2,24 @@ package main
 
 import (
 	"fmt"
+	"prime/constants"
+	"prime/finder"
 	"time"
 )
 
 func main() {
 	var min int = 1
-	var max int = giga
+	var max int = constants.Giga
 	fmt.Printf("Finding prime numbers from %d to %d\n", min, max)
 
 	startTime := time.Now()
 
-	finder := PrimeFinder{}
-	finder.setRange(min, max, 1000)
-	writePrimeFinderRangesToFile(finder.Ranges)
+	primeFinder := finder.PrimeFinder{}
+	primeFinder.SetRange(min, max, 1000)
+	finder.WritePrimeFinderRangesToFile(primeFinder.Ranges)
 
-	primeNumbers := finder.execute()
-	writePrimesToFile(primeNumbers)
+	primeNumbers := primeFinder.Execute()
+	finder.WritePrimesToFile(primeNumbers)
 
 	endTime := time.Now()
 

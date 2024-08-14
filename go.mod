@@ -1,3 +1,3 @@
-module go-prime
+module prime
 
 go 1.22.6
